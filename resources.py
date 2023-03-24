@@ -37,6 +37,11 @@ images = {
     "fire": pg.image.load(os.path.join('assets/img/fire.png')).convert(),
 }
 
-win = {
-    "fire": [name_list.index("fire")]
-}
+
+half_list = len(name_list)//2
+win = dict()
+for i, name in enumerate(name_list):
+    if i < half_list:
+        win[name] = [name_list[j-1] for j in range(i, i-half_list, -1)]
+    else:
+        win[name] = name_list[name_list.index(name)-half_list:name_list.index(name)]

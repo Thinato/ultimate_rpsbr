@@ -1,7 +1,7 @@
 import pygame as pg
 from math import hypot
 
-WIDTH, HEIGHT = 1000, 800
+WIDTH, HEIGHT = 600,600
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 
@@ -12,7 +12,7 @@ from numpy import random
 
 all_sprites = pg.sprite.Group()
 
-actor_n = 50
+actor_n = 200
 
 
 
@@ -41,18 +41,25 @@ while True:
             exit()
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_j:
+                arena_radius = WIDTH//2
                 all_sprites = generate_actors(actor_n, (WIDTH, HEIGHT))
+            elif event.key == pg.K_SPACE:
+                arena_shrink = 50
+        if event.type == pg.KEYUP:
+            if event.key == pg.K_SPACE:
+                arena_shrink = 10
 
     screen.fill((51, 163, 81))
     for sprite in all_sprites.sprites():
         for sprite_2 in all_sprites.sprites():
-            if sprite == sprite_2:
+            if sprite.name == sprite_2.name:
                 continue
-            elif dist(sprite, sprite_2) < sprite.collide:
+            elif dist(sprite, sprite_2) < sprite.collision:
                 sprite.fight(sprite_2)
+                
         
 
         sprite.update(screen, dt, arena_radius)
-    arena_radius -= arena_shrink*dt
+    arena_radius -= arena_shrink * dt
     pg.draw.circle(screen, (88, 51, 163), (WIDTH//2, HEIGHT//2), arena_radius, 3)
     pg.display.flip()
