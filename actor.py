@@ -2,11 +2,13 @@ import pygame as pg
 from resources import images, win
 from numpy import random
 from math import hypot, sin, cos, atan2
+from explosion import Explosion
 
 
 class Actor(pg.sprite.Sprite):
     def __init__(self, group, name, starting_pos=(0,0), screen_size=(800,800)):
         super().__init__(group)
+        self.group = group
         self.screen_size = screen_size
         self.screen_mid = (screen_size[0]//2, screen_size[1]//2)
         self.name = name
@@ -44,7 +46,12 @@ class Actor(pg.sprite.Sprite):
             self.pos += self.dir.normalize() * self.speed * dt
 
     def fight(self, actor_2):
-        if self.name in win[actor_2.name]:
+        if actor_2.name == "explosion":
+            if random.random() > 0.1:
+                self.kill()
+        elif self.name in win[actor_2.name]:
+            if random.random() < 0.005:
+                Explosion(self.group, self.pos)
             self.transform(actor_2.name)
     
     def transform(self, name):

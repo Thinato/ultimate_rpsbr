@@ -35,6 +35,7 @@ images = {
     "snake": pg.image.load(os.path.join('assets/img/snake.png')).convert(),
     "scissors": pg.image.load(os.path.join('assets/img/scissors.png')).convert(),
     "fire": pg.image.load(os.path.join('assets/img/fire.png')).convert(),
+    "explosion": pg.image.load(os.path.join('assets/img/explosion.png')).convert(),
 }
 
 

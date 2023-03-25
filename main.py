@@ -56,9 +56,6 @@ while True:
                 continue
             elif dist(sprite, sprite_2) < sprite.collision:
                 sprite.fight(sprite_2)
-                
-        
-
         sprite.update(screen, dt, arena_radius)
     arena_radius -= arena_shrink * dt
     pg.draw.circle(screen, (88, 51, 163), (WIDTH//2, HEIGHT//2), arena_radius, 3)
